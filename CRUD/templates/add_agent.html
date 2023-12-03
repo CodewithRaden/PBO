@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Agents</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles1.css') }}">
+</head>
+<body>
+    <form action="/add" method="post">
+        <h2>Agent Add</h2>
+        <label for="agent">Agent Name:</label>
+        <input type="text" id="agent" name="agent" required>
+        <label for="roles">Roles:</label>
+        <select id="roles" name="roles" required>
+            <option value="Duelist">Duelist</option>
+            <option value="Controller">Controller</option>
+            <option value="Initiator">Initiator</option>
+            <option value="Sentinel">Sentinel</option>
+        </select><br>
+        <button type="submit">Add Agent</button>
+    </form>
+         
+</body>
+</html>

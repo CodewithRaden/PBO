@@ -26,33 +26,32 @@
                 </path>
             </g>
         </svg></h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Agent Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for radiant in radiants %}  <!-- Change 'tasks' to 'radiants' -->
-    <tr>
-        <td>{{ radiant.id }}</td>
-        <td>{{ radiant.agent }}</td>
-        <td>
-            <a href="{{ url_for('edit', id=radiant.id) }}">Edit</a>
-            <a href="{{ url_for('delete', id=radiant.id) }}">Delete</a>
-        </td>
-    </tr>
-{% endfor %}
-        </tbody>
-    </table>
-    <form action="/add" method="post">
-        <h2>Agent Add</h2>
-        <input type="text" id="agent" name="agent" required>
-        <button type="submit">Add Agent</button>
-    </form>
-</body>
-
-</html>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Agent Name</th>
+                    <th>Roles</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for radiant in radiants %}
+                    <tr>
+                        <td>{{ radiant.id }}</td>
+                        <td>{{ radiant.agent }}</td>
+                        <td>{{ radiant.roles }}</td>
+                        <td>
+                            <a class="a-agent" href="{{ url_for('edit', id=radiant.id) }}">Edit</a>
+                            <a class="a-agent" href="{{ url_for('delete', id=radiant.id) }}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button class="btn-add">
+            <a  href="{{ url_for('add_agent')}}">Add New Agent</a>
+        </button>
+    </body>
+    
+    </html>

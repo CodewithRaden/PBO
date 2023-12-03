@@ -8,6 +8,7 @@ db = SQLAlchemy(app)
 class Radiant(db.Model):  
     id = db.Column(db.Integer, primary_key=True)
     agent = db.Column(db.String(120), nullable=False)
+    roles = db.Column(db.String(120), nullable=False)
 
 with app.app_context():
     db.create_all()
@@ -15,15 +16,22 @@ with app.app_context():
 @app.route('/')
 def index():
     radiants = Radiant.query.all()
-    return render_template('index.html', radiants=radiants)  
+    return render_template('index.html', radiants=radiants)
+
+@app.route('/add_agent', methods=['GET'])
+def add_agent():
+    roles = ['Duelist', 'Controller', 'Initiator', 'Sentinel']
+    return render_template('add_agent.html', roles=roles)
 
 @app.route('/add', methods=['POST'])
 def add():
     agent = request.form['agent']
-    new_radiant = Radiant(agent=agent)  
+    roles = request.form['roles']  
+    new_radiant = Radiant(agent=agent, roles=roles)
     db.session.add(new_radiant)
     db.session.commit()
     return redirect(url_for('index'))
+
 
 @app.route('/delete/<int:id>')
 def delete(id):
@@ -35,12 +43,15 @@ def delete(id):
 @app.route('/edit/<int:id>')
 def edit(id):
     edit_radiant = Radiant.query.get(id)
-    return render_template('edit.html', radiant=edit_radiant)  
+    roles = ['Duelist', 'Controller', 'Initiator', 'Sentinel']
+    return render_template('edit.html', radiant=edit_radiant, roles=roles)
+ 
 
 @app.route('/update/<int:id>', methods=['POST'])
 def update(id):
     update_radiant = Radiant.query.get(id)
-    update_radiant.agent = request.form['agent']  
+    update_radiant.agent = request.form['agent']
+    update_radiant.roles = request.form['roles']  
     db.session.commit()
     return redirect(url_for('index'))
 
