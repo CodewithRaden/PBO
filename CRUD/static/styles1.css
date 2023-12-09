@@ -96,3 +96,7 @@ form {
 .btn-add:hover{
     border-radius: 10px;
 }
+
+.content {
+    position: fixed;
+  }
